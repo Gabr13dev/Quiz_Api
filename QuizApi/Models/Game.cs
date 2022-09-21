@@ -8,11 +8,8 @@ namespace QuizApi.Models
         public int IdGame { get; set; }
 
         [Required]
-        public int Score { get; set; }
+        public string Title { get; set; }
 
-        [Required]
-        public int IdUser { get; set; }
-
-        public virtual User User { get; set; }
+        public virtual ICollection<Question> Questions { get; set; }
     }
 }

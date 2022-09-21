@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore.Update.Internal;
 using QuizApi.Context;
 using QuizApi.Models;
 
@@ -32,23 +33,23 @@ namespace QuizApi.Controllers
         [HttpPut]
         public IActionResult UpdateUser(User user)
         {
-            //Verificar Como fazer o Update corretamente no Enity Framework
-            /*try
+            try
             {
                 var currentUser = quizDbContext.User.FirstOrDefault(u => u.IdUser == user.IdUser);
                 if (currentUser == null)
                 {
                     throw new Exception("Usuario nao encontrado");
                 }
-
-                quizDbContext.User.Update(user);
+                quizDbContext.Entry(currentUser).CurrentValues.SetValues(user);
+                quizDbContext.User.Update(currentUser);
                 quizDbContext.SaveChanges();
                 return Ok("Usuario alterado com sucesso");
             }
             catch(Exception ex)
             {
                 return BadRequest(ex.Message);
-            }*/
+            }
         }
+
     }
 }

@@ -8,6 +8,7 @@ namespace QuizApi.Models
         [Key]
         public int IdOption { get; set; }
 
+        public string TitleOption { get; set; }
 
         [ForeignKey("Question")]
         public int IdQuestion { get; set; }
