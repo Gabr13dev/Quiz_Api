@@ -14,5 +14,7 @@ namespace QuizApi.Models
         public int IdQuestion { get; set; }
 
         public virtual Question Question { get; set; }
+
+        public bool IsCorrect { get; set; }
     }
 }

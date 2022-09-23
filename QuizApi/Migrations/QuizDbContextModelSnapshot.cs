@@ -19,17 +19,40 @@ namespace QuizApi.Migrations
                 .HasAnnotation("ProductVersion", "6.0.8")
                 .HasAnnotation("Relational:MaxIdentifierLength", 64);
 
+            modelBuilder.Entity("QuizApi.Models.Category", b =>
+                {
+                    b.Property<int>("IdCategory")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<string>("NameCategory")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.HasKey("IdCategory");
+
+                    b.ToTable("Category");
+                });
+
             modelBuilder.Entity("QuizApi.Models.Game", b =>
                 {
                     b.Property<int>("IdGame")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<string>("Title")
+                    b.Property<int>("IdCategory")
+                        .HasColumnType("int");
+
+                    b.Property<string>("TitleGame")
                         .IsRequired()
                         .HasColumnType("longtext");
 
+                    b.Property<string>("UrlImageCoverGame")
+                        .HasColumnType("longtext");
+
                     b.HasKey("IdGame");
+
+                    b.HasIndex("IdCategory");
 
                     b.ToTable("Game");
                 });
@@ -42,6 +65,9 @@ namespace QuizApi.Migrations
 
                     b.Property<int>("IdQuestion")
                         .HasColumnType("int");
+
+                    b.Property<bool>("IsCorrect")
+                        .HasColumnType("tinyint(1)");
 
                     b.Property<string>("TitleOption")
                         .IsRequired()
@@ -63,7 +89,7 @@ namespace QuizApi.Migrations
                     b.Property<int?>("GameIdGame")
                         .HasColumnType("int");
 
-                    b.Property<string>("Title")
+                    b.Property<string>("TitleQuestion")
                         .IsRequired()
                         .HasColumnType("longtext");
 
@@ -123,10 +149,21 @@ namespace QuizApi.Migrations
                     b.ToTable("User");
                 });
 
+            modelBuilder.Entity("QuizApi.Models.Game", b =>
+                {
+                    b.HasOne("QuizApi.Models.Category", "Category")
+                        .WithMany()
+                        .HasForeignKey("IdCategory")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Category");
+                });
+
             modelBuilder.Entity("QuizApi.Models.Option", b =>
                 {
                     b.HasOne("QuizApi.Models.Question", "Question")
-                        .WithMany()
+                        .WithMany("Options")
                         .HasForeignKey("IdQuestion")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -163,6 +200,11 @@ namespace QuizApi.Migrations
             modelBuilder.Entity("QuizApi.Models.Game", b =>
                 {
                     b.Navigation("Questions");
+                });
+
+            modelBuilder.Entity("QuizApi.Models.Question", b =>
+                {
+                    b.Navigation("Options");
                 });
 #pragma warning restore 612, 618
         }

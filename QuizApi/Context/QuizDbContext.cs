@@ -20,6 +20,7 @@ namespace QuizApi.Context
         public DbSet<Question> Question { get; set; }
         public DbSet<Game> Game { get; set; }
         public DbSet<Session> Session { get; set; }
+        public DbSet<Category> Category { get; set; }
 
     }
 }

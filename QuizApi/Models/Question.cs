@@ -9,11 +9,8 @@ namespace QuizApi.Models
         public int IdQuestion { get; set; }
 
         [Required]
-        public string Title { get; set; }
+        public string TitleQuestion { get; set; }
 
-        //[ForeignKey("CorrectOption")]
-        //public string? IdCorrectOption { get; set; }
-
-        //public virtual Option? CorrectOption { get; set; }
+        public virtual ICollection<Option> Options { get; set; }
     }
 }

@@ -13,7 +13,6 @@ namespace QuizApi.Models
         [Required]
         public string Password { get; set; }
 
-
         public string? Avatar { get; set; }
 
         public DateTime BirthDate { get; set; }
