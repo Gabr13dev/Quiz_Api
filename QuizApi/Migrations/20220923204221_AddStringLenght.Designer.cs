@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using QuizApi.Context;
 
@@ -10,9 +11,10 @@ using QuizApi.Context;
 namespace QuizApi.Migrations
 {
     [DbContext(typeof(QuizDbContext))]
-    partial class QuizDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220923204221_AddStringLenght")]
+    partial class AddStringLenght
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -50,8 +52,8 @@ namespace QuizApi.Migrations
                         .HasColumnType("varchar(100)");
 
                     b.Property<string>("UrlImageCoverGame")
-                        .HasMaxLength(400)
-                        .HasColumnType("varchar(400)");
+                        .HasMaxLength(200)
+                        .HasColumnType("varchar(200)");
 
                     b.HasKey("IdGame");
 

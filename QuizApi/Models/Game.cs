@@ -9,8 +9,11 @@ namespace QuizApi.Models
         public int IdGame { get; set; }
 
         [Required]
+        [StringLength(100)]
         public string TitleGame { get; set; }
 
+
+        [StringLength(400)]
         public string? UrlImageCoverGame { get; set; }
 
         [ForeignKey("Category")]

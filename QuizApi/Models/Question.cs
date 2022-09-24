@@ -9,6 +9,7 @@ namespace QuizApi.Models
         public int IdQuestion { get; set; }
 
         [Required]
+        [StringLength(100)]
         public string TitleQuestion { get; set; }
 
         public virtual ICollection<Option> Options { get; set; }

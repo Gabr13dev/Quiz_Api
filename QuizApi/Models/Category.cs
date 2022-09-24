@@ -8,6 +8,7 @@ namespace QuizApi.Models
         public int IdCategory { get; set; }
 
         [Required]
+        [StringLength(50)]
         public string NameCategory { get; set; }
     }
 }
