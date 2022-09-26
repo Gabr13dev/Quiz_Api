@@ -39,7 +39,7 @@ namespace QuizApi.Controllers
                 var currentUser = quizDbContext.User.FirstOrDefault(u => u.IdUser == user.IdUser);
                 if (currentUser == null)
                 {
-                    throw new Exception("Usuario nao encontrado");
+                    return NotFound("Usuario nao encontrado");
                 }
                 quizDbContext.Entry(currentUser).CurrentValues.SetValues(user);
                 quizDbContext.User.Update(currentUser);

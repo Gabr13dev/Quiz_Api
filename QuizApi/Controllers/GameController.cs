@@ -17,11 +17,31 @@ namespace QuizApi.Controllers
             this.quizDbContext = quizDbContext;
         }
 
+        [Route("GetAllGames")]
         [HttpGet]
         public IActionResult GetAllGames()
         {
             var listGames = quizDbContext.Game.Include(c => c.Category).ToList();
             return Ok(listGames);
+        }
+
+        [Route("GetGame/{id}")]
+        [HttpGet]
+        public IActionResult GetGame(string id)
+        {
+            try
+            {
+                var game = quizDbContext.Game.Include(c => c.Category).FirstOrDefault(g => g.IdGame == Convert.ToInt32(id));
+                if (game == null)
+                {
+                    return NotFound("Game não encontrado");
+                }
+                return Ok(game);
+            }
+            catch(Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         [HttpPost]
@@ -40,7 +60,7 @@ namespace QuizApi.Controllers
                 var currentGame = quizDbContext.Game.FirstOrDefault(g => g.IdGame == game.IdGame);
                 if (currentGame == null)
                 {
-                    throw new Exception("Game nao encontrado");
+                    return NotFound("Game nao encontrado");
                 }
                 quizDbContext.Entry(currentGame).CurrentValues.SetValues(game);
                 quizDbContext.Game.Update(currentGame);
